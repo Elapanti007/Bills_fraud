@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Metadata and QR Code Results</title>
+    <style>
+        .status {
+            font-weight: bold;
+        }
+        .red {
+            color: red;
+        }
+        .green {
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <h1>PDF Upload Results</h1>
+    <p>{{ message }}</p>
+    <h1>PDF Metadata and QR Code Results</h1>
+    
+    <p>Status: 
+        <span class="status {% if is_good %}green{% else %}red{% endif %}">
+            {% if is_good %}
+                Good
+            {% else %}
+                Modified
+            {% endif %}
+        </span>
+    </p>
+
+    <h2>Metadata:</h2>
+    <ul>
+        {% for key, value in metadata.items() %}
+            <li>{{ key }}: {{ value }}</li>
+        {% endfor %}
+    </ul>
+
+    <h2>QR Code Data:</h2>
+    {% if qr_contents %}
+        {% for qr_data in qr_contents %}
+            <p>{{ qr_data }}</p>
+        {% endfor %}
+    {% else %}
+        <p>No QR code data found.</p>
+    {% endif %}
+    
+
+    <h2>Extracted PDF Text:</h2>
+    <div style="white-space: pre-wrap;">{{ pdf_text }}</div>
+    <h2>GSTIN:</h2>
+    <div style="white-space: pre-wrap;">{{ gstin }}</div>
+    <a href="/">Upload another file</a>
+</body>
+</html>
